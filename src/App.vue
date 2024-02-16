@@ -15,7 +15,7 @@ const currentPage = ref(normalizePageHash())
 function normalizePageHash() {
   const hash = window.location.hash.slice(1)
 
-  if ([PAGES.timeline, PAGES.activities, PAGES.progress].find((item) => item.title === hash)) {
+  if (navItems.find((item) => item === hash)) {
     return hash
   }
 
