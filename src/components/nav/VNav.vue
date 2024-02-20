@@ -2,11 +2,20 @@
 import { ChartBarIcon, ClockIcon, ListBulletIcon } from '@heroicons/vue/24/outline'
 
 import { PAGES } from '@/constants/routes'
+import { isPageValid } from '@/utils/validators'
 import NavItem from './NavItem.vue'
 
-defineProps(['currentPage'])
+defineProps({
+  currentPage: {
+    type: String,
+    required: true,
+    validator: isPageValid
+  }
+})
 
-const emit = defineEmits(['navigate'])
+const emit = defineEmits({
+  navigate: isPageValid
+})
 
 const navItems = [
   { title: PAGES.timeline, icon: ClockIcon },

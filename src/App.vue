@@ -1,33 +1,24 @@
 <script setup>
 import { ref } from 'vue'
 
-import { PAGES } from '@/constants/routes'
+import { PAGES, ROUTES } from '@/constants/routes'
 import VHeader from '@/components/VHeader.vue'
 import VNav from '@/components/nav/VNav.vue'
-import ActivitiesPage from './pages/ActivitiesPage.vue'
-import ProgressPage from './pages/ProgressPage.vue'
-import TimelinePage from './pages/TimelinePage.vue'
+import ActivitiesPage from '@/pages/ActivitiesPage.vue'
+import ProgressPage from '@/pages/ProgressPage.vue'
+import TimelinePage from '@/pages/TimelinePage.vue'
+import { normalizePageHash } from '@/utils/normalize-page-hash'
 
-const navItems = [PAGES.timeline, PAGES.activities, PAGES.progress]
+const currentPage = ref(normalizePageHash(ROUTES))
 
-const currentPage = ref(normalizePageHash())
-
-function normalizePageHash() {
-  const hash = window.location.hash.slice(1)
-
-  if (navItems.find((item) => item === hash)) {
-    return hash
-  }
-
-  window.location.hash = navItems[0]
-
-  return navItems[0]
+function navigateToPage(page) {
+  currentPage.value = page
 }
 </script>
 
 <template>
   <div class="flex min-h-screen flex-col">
-    <VHeader />
+    <VHeader @go-to-home="navigateToPage($event)" />
 
     <main class="flex-grow">
       <ActivitiesPage v-show="currentPage === PAGES.activities" />
@@ -35,7 +26,7 @@ function normalizePageHash() {
       <TimelinePage v-show="currentPage === PAGES.timeline" />
     </main>
 
-    <VNav :current-page="currentPage" @navigate="currentPage = $event" />
+    <VNav :current-page="currentPage" @navigate="navigateToPage($event)" />
   </div>
 </template>
 

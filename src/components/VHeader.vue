@@ -1,14 +1,17 @@
 <script setup>
+import { PAGES } from '@/constants/routes'
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
+
+const emit = defineEmits(['goToHome'])
 </script>
 
 <template>
   <header class="sticky top-0 z-20 flex items-center justify-between border-b bg-white p-3">
-    <a href="#">
+    <a @click="emit('goToHome', PAGES.timeline)" :href="`#${PAGES.timeline}`">
       <img src="@/assets/img/logo.png" alt="Logo" class="h-9" />
     </a>
 
-    <a href="#" class="text-sm">
+    <a @click="emit('goToHome', PAGES.progress)" :href="`#${PAGES.progress}`" class="text-sm">
       <div v-if="true" class="flex items-center gap-1">
         Day Complete!
 
