@@ -25,8 +25,20 @@ function isSelectOptionValid(option) {
   return isNumber(option.value) && isString(option.label)
 }
 
+export function validateActivities(activities) {
+  return activities.every(isActivityValid)
+}
+
 export function isHourValid(hour) {
   return isNumber(hour) && isBetween(hour, MIDNINGHT_HOUR, HOURS_IN_DAY)
+}
+
+export function isActivityValid(activity) {
+  return isNotEmptyString(activity)
+}
+
+function isNotEmptyString(value) {
+  return isString(value) && value.length > 0
 }
 
 function isBetween(value, min, max) {

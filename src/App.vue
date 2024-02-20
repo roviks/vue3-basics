@@ -11,6 +11,8 @@ import { normalizePageHash } from '@/utils/normalize-page-hash'
 
 const currentPage = ref(normalizePageHash(ROUTES))
 
+const activities = ['Coding', 'Reading', 'Training']
+
 function navigateToPage(page) {
   currentPage.value = page
 }
@@ -21,7 +23,7 @@ function navigateToPage(page) {
     <VHeader @go-to-home="navigateToPage($event)" />
 
     <main class="flex-grow">
-      <ActivitiesPage v-show="currentPage === PAGES.activities" />
+      <ActivitiesPage :activities="activities" v-show="currentPage === PAGES.activities" />
       <ProgressPage v-show="currentPage === PAGES.progress" />
       <TimelinePage v-show="currentPage === PAGES.timeline" />
     </main>
